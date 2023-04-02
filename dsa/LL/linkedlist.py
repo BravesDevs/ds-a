@@ -17,12 +17,30 @@ class LinkedList:
         else:
             self.head = new_node
 
+    def findKthNodeFromEnd(self,k):
+        length = self.get_length() + 1
+        if k>length:
+            print("Unexpected k")
+            return
+        else:
+            hashMap = self.mapInHashTable()
+            print("Element",hashMap[length-(k+1)].data)           
 
     def print_list(self):
         current = self.head
         while current:
             print(current.data)
             current = current.next
+    
+    def mapInHashTable(self):
+        pos=1
+        current = self.head
+        hashTable = {}
+        while current:
+            hashTable[pos] = current
+            current = current.next
+            pos+=1
+        return hashTable
 
     def insert_At_beginning(self,data):
         new_node = Node(data)
@@ -76,15 +94,17 @@ class LinkedList:
             
     
 
-e1 = Node(1)
+e1 = Node(9)
 
 ll = LinkedList(e1)
 
-ll.append(2)
-ll.append(3)
+ll.append(8)
+ll.append(7)
+ll.append(6)
+ll.append(5)
 ll.append(4)
-# ll.insert_At_beginning(5)
-ll.delete_At_position(1)
-# ll.insert_At_position(40,0)
 
 ll.print_list()
+hashMap = ll.mapInHashTable()
+
+ll.findKthNodeFromEnd(2)
