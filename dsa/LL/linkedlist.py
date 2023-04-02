@@ -87,6 +87,18 @@ class LinkedList:
                 current = current.next
                 count+=1
             current.next = current.next.next
+        
+    def reverseList(self):
+        prev = None
+        curr = self.head
+
+        while curr is not None:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        self.head = prev
+        return
             
         
             
@@ -103,8 +115,8 @@ ll.append(7)
 ll.append(6)
 ll.append(5)
 ll.append(4)
-
+ll.reverseList()
 ll.print_list()
-hashMap = ll.mapInHashTable()
+# hashMap = ll.mapInHashTable()
 
-ll.findKthNodeFromEnd(2)
+# ll.findKthNodeFromEnd(2)
