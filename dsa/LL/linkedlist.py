@@ -24,7 +24,7 @@ class LinkedList:
             return
         else:
             hashMap = self.mapInHashTable()
-            print("Element",hashMap[length-(k+1)].data)           
+            return hashMap[length-(k+1)].data           
 
     def print_list(self):
         current = self.head
@@ -49,6 +49,14 @@ class LinkedList:
 
     def get_length(self):
         count=0
+        current = self.head
+        while current.next:
+            count+=1
+            current=current.next
+        return count
+
+    def get_length_from_one(self):
+        count=1
         current = self.head
         while current.next:
             count+=1
@@ -99,24 +107,80 @@ class LinkedList:
             curr = next
         self.head = prev
         return
-            
-        
-            
-
-            
     
+    def removeNthNodeFromEnd(self,n):
+        hashMap = self.mapInHashTable()
+        length = self.get_length_from_one()
+        
+        hashMap[length-(n-1)-1].next = hashMap[length-(n-1)-1].next.next
+        hashMap[length-(n-1)].next = None
+        return
 
-e1 = Node(9)
+class Solution:
+    def __init__(self, ll1,ll2):
+        self.ll1 = ll1
+        self.ll2 = ll2
+    
+    def addTwoNumbers(self):
+        ptr1 = self.ll1.head
+        ptr2 = self.ll2.head
+        numLi = []
+        carry = 0
+        while ptr1 is not None or ptr2 is not None:
+            if ptr1 is not None:
+                num1 = ptr1.data
+                ptr1 = ptr1.next
+            else:
+                num1 = 0
+            if ptr2 is not None:
+                num2 = ptr2.data
+                ptr2 = ptr2.next
+            else:
+                num2 = 0
+            sum = num1 + num2 + carry
+            carry = sum//10
+            numLi.append(sum%10)
+        if carry>0:
+            numLi.append(carry)
+        
 
-ll = LinkedList(e1)
+# Remove nth Node from the end of list
+node1 = Node(1)
+ll = LinkedList(node1)
+# ll.append(2)
+# ll.append(3)
+# ll.append(4)
+# ll.append(5)
 
-ll.append(8)
-ll.append(7)
-ll.append(6)
-ll.append(5)
-ll.append(4)
-ll.reverseList()
+ll.removeNthNodeFromEnd(1)
 ll.print_list()
+            
+# linkNode1 = Node(5)
+# linkNode2 = Node(2)
+# ll1 = LinkedList(linkNode1)
+# ll2 = LinkedList(linkNode2)
+
+# ll1.append(6)
+# ll1.append(4)
+
+# ll2.append(4)
+# ll2.append(3)
+
+# slns = Solution(ll1,ll2)
+
+# slns.addTwoNumbers()
+
+# e1 = Node(9)
+
+# ll = LinkedList(e1)
+
+# ll.append(8)
+# ll.append(7)
+# ll.append(6)
+# ll.append(5)
+# ll.append(4)
+# ll.reverseList()
+# ll.print_list()
 # hashMap = ll.mapInHashTable()
 
 # ll.findKthNodeFromEnd(2)
