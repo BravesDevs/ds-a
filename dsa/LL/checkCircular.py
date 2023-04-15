@@ -53,18 +53,15 @@ class CheckCircularLL:
         nodeDataDict = {}
         current = self.head
 
-        while current.next:
+        while current and current.next:
             if (hex(id(current.next)) in nodeDataDict):
                 print("Circular")
-                break
-                # return
+                return
             else:
-                nodeDataDict[current] = current.next
+                nodeDataDict[hex(id(current))] = current.next
             current = current.next
-        data = json.dumps(nodeDataDict, indent=4)
-        print(data)
-        return
         print("Not circular")
+        return
 
 e1 = Node(1)
 ll = CheckCircularLL(e1)
@@ -72,6 +69,6 @@ ll.append(2)
 ll.append(3)
 ll.append(4)
 
-ll.appendAndPointNext(5,2)
+# ll.appendAndPointNext(5,2)
 ll.checkIfCircular()
 # ll.print_list()
