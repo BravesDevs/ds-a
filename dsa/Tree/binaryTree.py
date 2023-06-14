@@ -71,25 +71,39 @@ class Tree:
 
         return self.traversePath
 
+    def levelOrderTraversal(self, node):
+        if node is None:
+            return
+        queue = [node]
+        while len(queue) > 0:
+            current = queue.pop(0)
+            self.traversePath.append(current.val)
+            if current.left:
+                queue.append(current.left)
+            if current.right:
+                queue.append(current.right)
 
-# n1 = Node(5)
-# tree = Tree(n1)
-# tree.addNode(3)
-# tree.addNode(7)
-# tree.addNode(2)
-# tree.addNode(4)
-# tree.addNode(6)
-# tree.addNode(8)
+        return self.traversePath
 
-n1 = Node(4)
+
+n1 = Node(5)
 tree = Tree(n1)
-tree.addNode(2)
-tree.addNode(6)
-tree.addNode(1)
 tree.addNode(3)
+tree.addNode(7)
+tree.addNode(2)
+tree.addNode(4)
+tree.addNode(6)
+tree.addNode(8)
 
-result = tree.minimumAbsoluteDifference()
-print(result)
+# n1 = Node(4)
+# tree = Tree(n1)
+# tree.addNode(2)
+# tree.addNode(6)
+# tree.addNode(1)
+# tree.addNode(3)
+
+# result = tree.minimumAbsoluteDifference()
+# print(result)
 
 # n1 = Node(1)
 # tree = Tree(n1)
@@ -99,9 +113,11 @@ print(result)
 # tree.addNode(49)
 
 # pre_order = tree.preOrderTraversal(tree.root)
-in_order = tree.inOrderTraversal(tree.root)
+# in_order = tree.inOrderTraversal(tree.root)
 # post_order = tree.postOrderTraversal(tree.root)
+level_order = tree.levelOrderTraversal(tree.root)
 
 # print("Pre-order: ",pre_order)
-print("In-order: ",in_order)
+# print("In-order: ",in_order)
 # print("Post-order: ", post_order)
+print("Level-order: ", level_order)
