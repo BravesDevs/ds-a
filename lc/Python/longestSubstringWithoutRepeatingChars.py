@@ -1,19 +1,18 @@
 class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        length=0
-        fastPtr = 1
-        slowPtr = 0
-        while fastPtr<=len(s):
-            strLen = len(s[slowPtr:fastPtr])
-            setLen = len(set(s[slowPtr:fastPtr]))
-            
-            if strLen == setLen:
-                length = strLen if strLen > length else length
-                fastPtr+=1
-            else:
-                slowPtr+=1
-        
-        print(length)
+    def lengthOfLongestSubstring(self, s):
+        l,r = 0,1
+        length=1 if len(s)>0 else 0
+        while r<len(s):
+            if s[r] not in s[l:r]:
+                length=max(length,(r-l)+1)
+            while s[r] in s[l:r]:
+                l+=1
+            r+=1
+        return length
+
+
+
 
 sln = Solution()
-sln.lengthOfLongestSubstring("pwwkew")
+result=sln.lengthOfLongestSubstring("pwwkew")
+# print(result)
