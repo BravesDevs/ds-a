@@ -5,10 +5,10 @@ class Solution:
         while r<len(prices):
             if(prices[r]>prices[l]):
                 maxProfit+=prices[r]-prices[l]
-            l=r
+            l+=1
             r+=1
         return maxProfit
 
 sln = Solution()
-result = sln.maxProfit([7,6,4,3,1])
+result = sln.maxProfit([1,3,2,8,4,9])
 print("Result: ",result)
