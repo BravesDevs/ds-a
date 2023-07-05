@@ -2,7 +2,7 @@ class Solution(object):
     def longestSubarray(self, nums):
 
         if nums.count(0) <= 1 or nums.count(1)==1:
-            return nums.count(1) if nums.count(0) == 1 else nums.count(1)-1
+            return nums.count(1) if nums.count(0) == 1 or nums.count(1)==1 else nums.count(1)-1
 
         nums = list(map(int, ''.join(map(str, nums)).strip('0')))
         indices = [index for index, value in enumerate(nums) if value == 0]
@@ -30,7 +30,6 @@ class Solution(object):
                     l += 1
 
         return maxLen
-
 
 sln = Solution()
 result = sln.longestSubarray([1, 1, 1])
