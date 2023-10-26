@@ -4,7 +4,6 @@ import numpy as np
 
 class Solution(object):
     def kthGrammar(self, n, k):
-        print(n, "=>", k)
         if n == 1 and k == 1:
             return 0
         else:
