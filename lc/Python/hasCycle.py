@@ -70,18 +70,35 @@ class LinkedList:
 
         return True
 
+    def reverseLinkedList(self):
+        prev = None
+        current = self.head
+
+        while current is not None:
+            nextNode = current.next
+
+            current.next = prev
+
+            prev = current
+
+            current = nextNode
+
+        self.head = prev
+
 
 n1 = Node(1)
 n2 = Node(2)
 n3 = Node(3)
-n5 = Node(1)
+n4 = Node(4)
+n5 = Node(5)
 
 n1.next = n2
 n2.next = n3
-n3.next = n5
-# n4.next = n5
+n3.next = n4
+n4.next = n5
 n5.next = None
 
 ll = LinkedList(n1)
-print(ll.isPalindrome())
-# ll.print_list()
+ll.reverseLinkedList()
+# print(ll.isPalindrome())
+ll.print_list()
