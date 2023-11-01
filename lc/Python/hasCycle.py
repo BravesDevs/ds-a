@@ -85,20 +85,34 @@ class LinkedList:
 
         self.head = prev
 
+    def deleteDuplicates(self):
+        currPtr = self.head
+        nextPtr = currPtr.next
+
+        while nextPtr is not None:
+            if currPtr.data == nextPtr.data:
+                currPtr.next = nextPtr.next
+            else:
+                currPtr = nextPtr
+            nextPtr = nextPtr.next
+
 
 n1 = Node(1)
-n2 = Node(2)
-n3 = Node(3)
-n4 = Node(4)
-n5 = Node(5)
+n2 = Node(1)
+n3 = Node(2)
+n4 = Node(3)
+n5 = Node(3)
+n6 = Node(3)
 
 n1.next = n2
 n2.next = n3
 n3.next = n4
 n4.next = n5
-n5.next = None
+n5.next = n6
+n6.next = None
 
 ll = LinkedList(n1)
-ll.reverseLinkedList()
+# ll.reverseLinkedList()
+ll.deleteDuplicates()
 # print(ll.isPalindrome())
 ll.print_list()
