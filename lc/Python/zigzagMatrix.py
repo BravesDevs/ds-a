@@ -7,12 +7,11 @@ class Solution:
         di = 0
         dir_row = [0, 1, 0]
         dir_col = [1, -1, 1]
-
-        for i in range(1, (n*3)):
-            if seen[-1][-1] == True:
-                return result
-            result[x][y] = i
+        count = 1
+        while not seen[-1][-1]:
+            result[x][y] = count
             seen[x][y] = True
+            count += 1
 
             cal_row = x + dir_row[di]
             cal_col = y + dir_col[di]
