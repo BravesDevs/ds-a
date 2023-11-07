@@ -9,6 +9,8 @@ class Node:
         self.left = None
         self.right = None
         self.val = key
+        self.count=1
+        self.countLi=[]
 
 
 class Tree:
@@ -96,7 +98,48 @@ class Tree:
                 break
         
         return [sum(x)/len(x) for x in self.traversePath]
+    
+    def minimumLevelBinaryTree(self,node):
 
+        if node is None:
+            return 0
+
+        count=1
+        countLi=[]
+
+        def traverseTree(node,count):
+            if node.left is None and node.right is None:
+                countLi.append(count)
+                return
+            
+            count+=1
+            if node.left is not None:
+                traverseTree(node.left,count)
+            if node.right is not None:
+                traverseTree(node.right,count)
+        
+        traverseTree(node, count)
+
+        return min(countLi)
+
+    # def treeTrace(self,node):
+    #     mapTree = {}
+    #     def trace(node):
+    #         if node is None:
+    #             return
+    #         li=[]
+    #         if node.left is not None:
+    #             li.append(node.left.val)
+    #         if node.right is not None:
+    #             li.append(node.right.val)
+            
+    #         mapTree[node.val] = li
+    #         trace(node.left)
+    #         trace(node.right)
+        
+    #     trace(node)
+
+        # print(mapTree)
 
 #     def minDepth(self, root):
 #         node_levels = {}
@@ -140,17 +183,21 @@ class Tree:
 # result = tree.minimumAbsoluteDifference()
 # print(result)
 
-n1 = Node(3)
-n2 = Node(9)
-n3 = Node(20)
-n4 = Node(15)
-n5 = Node(7)
+n1 = Node(2)
+n2 = Node(3)
+n3 = Node(4)
+n4 = Node(5)
+n5 = Node(6)
 
 
-n1.left = n2
-n1.right = n3
-n1.left.left=n4
-n1.left.right=n5
+n1.left = None
+n1.right = n2
+n1.right.left = None
+n1.right.right = n3
+n1.right.right.left = None
+n1.right.right.right = n4
+n1.right.right.right.left = None
+n1.right.right.right.right = n5
 
 # tree = Tree(n1)
 # tree.addNode(9)
@@ -158,13 +205,14 @@ n1.left.right=n5
 # tree.addNode(15)
 # tree.addNode(7)
 tree = Tree(n1)
-
+print(tree.minimumLevelBinaryTree(tree.root))
+# tree.treeTrace(tree.root)
 # pre_order = tree.preOrderTraversal(tree.root)
 # in_order = tree.inOrderTraversal(tree.root)
 # post_order = tree.postOrderTraversal(tree.root)
-level_order = tree.levelOrderTraversal(tree.root)
+# level_order = tree.levelOrderTraversal(tree.root)
 
 # print("Pre-order: ",pre_order)
 # print("In-order: ",in_order)
 # print("Post-order: ", post_order)
-print("Level-order: ", level_order)
+# print("Level-order: ", level_order)
