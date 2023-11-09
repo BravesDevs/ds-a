@@ -75,6 +75,28 @@ class Tree:
 
 #         return self.traversePath
 
+    def mapTree(self, root):
+
+        dictMap = {}
+
+        def traverse(node):
+            if node is None:
+                return
+            dictMap[node.val] = {'l': [], 'r': []}
+
+            if node.left is not None:
+                dictMap[node.val]['l'].append(node.left.val)
+
+            if node.right is not None:
+                dictMap[node.val]['r'].append(node.right.val)
+
+            traverse(node.left)
+            traverse(node.right)
+
+        traverse(root)
+
+        print(dictMap)
+
     def levelOrderTraversal(self, node):
         self.traversePath = [[node.val]]
         queue = [node]
@@ -134,6 +156,19 @@ class Tree:
             return traverseTree(p.left, q.left) and traverseTree(p.right, q.right)
 
         return traverseTree(p, q)
+
+    def pathSum(self, root, target):
+        def countVal(node, count):
+            if node is None:
+                return False
+
+            count += node.val
+
+            if count == target:
+                return True
+            return countVal(node.left, count) or countVal(node.right, count)
+
+        return countVal(root, 0)
 
     # def treeTrace(self,node):
     #     mapTree = {}
@@ -196,18 +231,32 @@ class Tree:
 # result = tree.minimumAbsoluteDifference()
 # print(result)
 
-n1 = Node(1)
-n2 = Node(2)
-n3 = Node(3)
-n4 = Node(1)
-n5 = Node(2)
-n6 = Node(3)
+n1 = Node(5)
+n2 = Node(4)
+n3 = Node(8)
+n4 = Node(11)
+n5 = Node(13)
+n6 = Node(4)
+n7 = Node(7)
+n8 = Node(2)
+n9 = Node(1)
 
 
-n1.left = n2
-n1.right = n3
-n4.left = n5
-n4.right = n6
+n1.left = n2  # 4
+
+n1.right = n3  # 8
+
+n1.left.left = n4  # 11
+
+n1.left.left.left = n7  # 7
+
+n1.left.left.right = n8  # 2
+
+n1.right.left = n5  # 13
+
+n1.right.right = n6  # 4
+
+n1.right.right.right = n9  # 1
 
 # tree = Tree(n1)
 # tree.addNode(9)
@@ -216,7 +265,9 @@ n4.right = n6
 # tree.addNode(7)
 tree = Tree(n1)
 # print(tree.minimumLevelBinaryTree(tree.root))
-print(tree.isSame(n1, n4))
+# print(tree.isSame(n1, n4))
+print(tree.mapTree(n1))
+# print(tree.pathSum(n1, 22))
 # tree.treeTrace(tree.root)
 # pre_order = tree.preOrderTraversal(tree.root)
 # in_order = tree.inOrderTraversal(tree.root)
