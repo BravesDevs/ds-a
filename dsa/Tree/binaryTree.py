@@ -4,13 +4,14 @@ import math
 from treelib import Node, Tree
 tree = Tree()
 
+
 class Node:
     def __init__(self, key):
         self.left = None
         self.right = None
         self.val = key
-        self.count=1
-        self.countLi=[]
+        self.count = 1
+        self.countLi = []
 
 
 class Tree:
@@ -82,7 +83,7 @@ class Tree:
             res = []
             resNodes = []
 
-            while len(queue)>0:
+            while len(queue) > 0:
                 current = queue.pop()
                 if current.left is not None:
                     res.append(current.left.val)
@@ -90,37 +91,49 @@ class Tree:
                 if current.right is not None:
                     res.append(current.right.val)
                     resNodes.append(current.right)
-            if len(resNodes)>0:
+            if len(resNodes) > 0:
                 for i in resNodes[::-1]:
                     queue.append(i)
                 self.traversePath.append(res)
             else:
                 break
-        
+
         return [sum(x)/len(x) for x in self.traversePath]
-    
-    def minimumLevelBinaryTree(self,node):
+
+    def minimumLevelBinaryTree(self, node):
 
         if node is None:
             return 0
 
-        count=1
-        countLi=[]
+        count = 1
+        countLi = []
 
-        def traverseTree(node,count):
+        def traverseTree(node, count):
             if node.left is None and node.right is None:
                 countLi.append(count)
                 return
-            
-            count+=1
+
+            count += 1
             if node.left is not None:
-                traverseTree(node.left,count)
+                traverseTree(node.left, count)
             if node.right is not None:
-                traverseTree(node.right,count)
-        
+                traverseTree(node.right, count)
+
         traverseTree(node, count)
 
         return min(countLi)
+
+    def isSame(self, p, q):
+        def traverseTree(p, q):
+            if p is None and q is None:
+                return True
+
+            if ((p and not q) or (q and not p)) or (p.val != q.val):
+                return False
+
+            return traverseTree(p.left, q.left) and traverseTree(p.right, q.right)
+
+        return traverseTree(p, q)
 
     # def treeTrace(self,node):
     #     mapTree = {}
@@ -132,11 +145,11 @@ class Tree:
     #             li.append(node.left.val)
     #         if node.right is not None:
     #             li.append(node.right.val)
-            
+
     #         mapTree[node.val] = li
     #         trace(node.left)
     #         trace(node.right)
-        
+
     #     trace(node)
 
         # print(mapTree)
@@ -183,21 +196,18 @@ class Tree:
 # result = tree.minimumAbsoluteDifference()
 # print(result)
 
-n1 = Node(2)
-n2 = Node(3)
-n3 = Node(4)
-n4 = Node(5)
-n5 = Node(6)
+n1 = Node(1)
+n2 = Node(2)
+n3 = Node(3)
+n4 = Node(1)
+n5 = Node(2)
+n6 = Node(3)
 
 
-n1.left = None
-n1.right = n2
-n1.right.left = None
-n1.right.right = n3
-n1.right.right.left = None
-n1.right.right.right = n4
-n1.right.right.right.left = None
-n1.right.right.right.right = n5
+n1.left = n2
+n1.right = n3
+n4.left = n5
+n4.right = n6
 
 # tree = Tree(n1)
 # tree.addNode(9)
@@ -205,7 +215,8 @@ n1.right.right.right.right = n5
 # tree.addNode(15)
 # tree.addNode(7)
 tree = Tree(n1)
-print(tree.minimumLevelBinaryTree(tree.root))
+# print(tree.minimumLevelBinaryTree(tree.root))
+print(tree.isSame(n1, n4))
 # tree.treeTrace(tree.root)
 # pre_order = tree.preOrderTraversal(tree.root)
 # in_order = tree.inOrderTraversal(tree.root)
