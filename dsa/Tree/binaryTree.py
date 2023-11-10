@@ -158,14 +158,18 @@ class Tree:
         return traverseTree(p, q)
 
     def pathSum(self, root, target):
+        if root is None:
+            return False
+
         def countVal(node, count):
             if node is None:
                 return False
 
             count += node.val
 
-            if count == target:
+            if count == target and node.left is None and node.right is None:
                 return True
+
             return countVal(node.left, count) or countVal(node.right, count)
 
         return countVal(root, 0)
@@ -231,32 +235,36 @@ class Tree:
 # result = tree.minimumAbsoluteDifference()
 # print(result)
 
-n1 = Node(5)
-n2 = Node(4)
+n1 = Node(0)
+n2 = Node(2)
 n3 = Node(8)
-n4 = Node(11)
-n5 = Node(13)
-n6 = Node(4)
-n7 = Node(7)
-n8 = Node(2)
-n9 = Node(1)
+n4 = Node(-2)
+# n5 = Node(5)
+# n6 = Node(4)
+# n7 = Node(7)
+# n8 = Node(2)
+# n9 = Node(1)
 
+n1.left = n2
+n1.right = n3
+n1.left.left = n4
+n1.left.right = None
 
-n1.left = n2  # 4
+# n1.left = n2
 
-n1.right = n3  # 8
+# n1.right = None
 
-n1.left.left = n4  # 11
+# n1.left.left = n3
 
-n1.left.left.left = n7  # 7
+# n1.left.right = None
 
-n1.left.left.right = n8  # 2
+# n1.left.left.left = n4
 
-n1.right.left = n5  # 13
+# n1.left.left.right = None
 
-n1.right.right = n6  # 4
+# n1.left.left.left.left = n5
 
-n1.right.right.right = n9  # 1
+# n1.left.left.left.right = None
 
 # tree = Tree(n1)
 # tree.addNode(9)
@@ -266,8 +274,8 @@ n1.right.right.right = n9  # 1
 tree = Tree(n1)
 # print(tree.minimumLevelBinaryTree(tree.root))
 # print(tree.isSame(n1, n4))
-print(tree.mapTree(n1))
-# print(tree.pathSum(n1, 22))
+# print(tree.mapTree(n1))
+print(tree.pathSum(n1, 0))
 # tree.treeTrace(tree.root)
 # pre_order = tree.preOrderTraversal(tree.root)
 # in_order = tree.inOrderTraversal(tree.root)
