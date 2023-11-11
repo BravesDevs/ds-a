@@ -10,8 +10,6 @@ class Node:
         self.left = None
         self.right = None
         self.val = key
-        self.count = 1
-        self.countLi = []
 
 
 class Tree:
@@ -145,6 +143,29 @@ class Tree:
 
         return min(countLi)
 
+    def maximumLevelBinaryTree(self, node):
+
+        if node is None:
+            return 0
+
+        count = 1
+        countLi = []
+
+        def traverseTree(node, count):
+            if node.left is None and node.right is None:
+                countLi.append(count)
+                return
+
+            count += 1
+            if node.left is not None:
+                traverseTree(node.left, count)
+            if node.right is not None:
+                traverseTree(node.right, count)
+
+        traverseTree(node, count)
+
+        return max(countLi)
+
     def isSame(self, p, q):
         def traverseTree(p, q):
             if p is None and q is None:
@@ -174,6 +195,21 @@ class Tree:
 
         return countVal(root, 0)
 
+    def diameterOfBinaryTree(self, node):
+
+        res = [0]
+
+        def dfs(root):
+            if not root:
+                return -1
+
+            left = dfs(root.left)
+            right = dfs(root.right)
+            res[0] = max(res[0], 2+left+right)
+            return 1 + max(left, right)
+
+        dfs(node)
+        return res[0]
     # def treeTrace(self,node):
     #     mapTree = {}
     #     def trace(node):
@@ -235,11 +271,14 @@ class Tree:
 # result = tree.minimumAbsoluteDifference()
 # print(result)
 
-n1 = Node(0)
+n1 = Node(1)
 n2 = Node(2)
-n3 = Node(8)
-n4 = Node(-2)
-# n5 = Node(5)
+n3 = Node(3)
+n4 = Node(4)
+n5 = Node(5)
+# n3 = Node(20)
+# n4 = Node(15)
+# n5 = Node(7)
 # n6 = Node(4)
 # n7 = Node(7)
 # n8 = Node(2)
@@ -248,7 +287,13 @@ n4 = Node(-2)
 n1.left = n2
 n1.right = n3
 n1.left.left = n4
-n1.left.right = None
+n1.left.right = n5
+# n1.right.left = n4
+# n1.right.right = n5
+
+tree = Tree(n1)
+print(tree.diameterOfBinaryTree(tree.root))
+
 
 # n1.left = n2
 
@@ -271,11 +316,11 @@ n1.left.right = None
 # tree.addNode(20)
 # tree.addNode(15)
 # tree.addNode(7)
-tree = Tree(n1)
 # print(tree.minimumLevelBinaryTree(tree.root))
 # print(tree.isSame(n1, n4))
 # print(tree.mapTree(n1))
-print(tree.pathSum(n1, 0))
+# print(tree.pathSum(n1, 0))
+# print(tree.maximumLevelBinaryTree(n1))
 # tree.treeTrace(tree.root)
 # pre_order = tree.preOrderTraversal(tree.root)
 # in_order = tree.inOrderTraversal(tree.root)
