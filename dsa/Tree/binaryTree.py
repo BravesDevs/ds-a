@@ -210,6 +210,22 @@ class Tree:
 
         dfs(node)
         return res[0]
+
+    def mergeTwoTrees(self, root1, root2):
+        if not root1 and not root2:
+            return None
+
+        v1 = root1.val if root1 else 0
+        v2 = root2.val if root2 else 0
+
+        node = Node(v1+v2)
+
+        node.left = mergeTwoTrees(
+            root1.left if root1 else None, root2.left if root2 else None)
+        node.right = mergeTwoTrees(
+            root1.right if root1 else None, root2.right if root2 else None)
+
+        return node
     # def treeTrace(self,node):
     #     mapTree = {}
     #     def trace(node):
@@ -270,7 +286,6 @@ class Tree:
 
 # result = tree.minimumAbsoluteDifference()
 # print(result)
-
 n1 = Node(1)
 n2 = Node(2)
 n3 = Node(3)
