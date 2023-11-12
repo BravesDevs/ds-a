@@ -226,6 +226,25 @@ class Tree:
             root1.right if root1 else None, root2.right if root2 else None)
 
         return node
+
+    def isSubTree(self, s, t):
+        if not t:
+            return True
+        if not s:
+            return False
+
+        if self.sameTree(s, t):
+            return True
+        return self.sameTree(s.left, t) or self.sameTree(s.right, t)
+
+    def sameTree(self, s, t):
+        if not s and not t:
+            return True
+        if s and t and s.val == t.val:
+            return self.sameTree(s.left, t.left) and self.sameTree(s.right, t.right)
+
+        return False
+
     # def treeTrace(self,node):
     #     mapTree = {}
     #     def trace(node):
@@ -286,28 +305,29 @@ class Tree:
 
 # result = tree.minimumAbsoluteDifference()
 # print(result)
-n1 = Node(1)
-n2 = Node(2)
-n3 = Node(3)
-n4 = Node(4)
-n5 = Node(5)
-# n3 = Node(20)
-# n4 = Node(15)
-# n5 = Node(7)
-# n6 = Node(4)
-# n7 = Node(7)
-# n8 = Node(2)
-# n9 = Node(1)
+n1 = Node(3)
+n2 = Node(4)
+n3 = Node(5)
+n4 = Node(1)
+n5 = Node(2)
+n10 = Node(0)
+
+n6 = Node(4)
+n7 = Node(1)
+n8 = Node(2)
 
 n1.left = n2
 n1.right = n3
 n1.left.left = n4
 n1.left.right = n5
-# n1.right.left = n4
-# n1.right.right = n5
+n1.left.right.left = n10
+
+n6.left = n7
+n6.right = n8
 
 tree = Tree(n1)
-print(tree.diameterOfBinaryTree(tree.root))
+# print(tree.diameterOfBinaryTree(tree.root))
+print(tree.isSubTree(n1, n6))
 
 
 # n1.left = n2
