@@ -245,24 +245,38 @@ class Tree:
 
         return False
 
-    # def treeTrace(self,node):
-    #     mapTree = {}
-    #     def trace(node):
-    #         if node is None:
-    #             return
-    #         li=[]
-    #         if node.left is not None:
-    #             li.append(node.left.val)
-    #         if node.right is not None:
-    #             li.append(node.right.val)
+    def invertBinaryTree(self, root):
+        if not root:
+            return None
 
-    #         mapTree[node.val] = li
-    #         trace(node.left)
-    #         trace(node.right)
+        tmp = root.left
+        root.left = root.right
+        root.right = tmp
 
-    #     trace(node)
+        self.invertBinaryTree(root.left)
+        self.invertBinaryTree(root.right)
 
-        # print(mapTree)
+        return root
+
+    def treeTrace(self, node):
+        mapTree = {}
+
+        def trace(node):
+            if node is None:
+                return
+            li = []
+            if node.left is not None:
+                li.append(node.left.val)
+            if node.right is not None:
+                li.append(node.right.val)
+
+            mapTree[node.val] = li
+            trace(node.left)
+            trace(node.right)
+
+        trace(node)
+
+        print(mapTree)
 
 #     def minDepth(self, root):
 #         node_levels = {}
@@ -305,29 +319,31 @@ class Tree:
 
 # result = tree.minimumAbsoluteDifference()
 # print(result)
-n1 = Node(3)
-n2 = Node(4)
-n3 = Node(5)
-n4 = Node(1)
-n5 = Node(2)
-n10 = Node(0)
+n1 = Node(2)
+n2 = Node(1)
+n3 = Node(3)
+# n4 = Node(1)
+# n5 = Node(2)
+# n10 = Node(0)
 
-n6 = Node(4)
-n7 = Node(1)
-n8 = Node(2)
+# n6 = Node(4)
+# n7 = Node(1)
+# n8 = Node(2)
 
 n1.left = n2
 n1.right = n3
-n1.left.left = n4
-n1.left.right = n5
-n1.left.right.left = n10
+# n1.left.left = n4
+# n1.left.right = n5
+# n1.left.right.left = n10
 
-n6.left = n7
-n6.right = n8
+# n6.left = n7
+# n6.right = n8
 
 tree = Tree(n1)
+result = tree.invertBinaryTree(tree.root)
+print(tree.treeTrace(result))
 # print(tree.diameterOfBinaryTree(tree.root))
-print(tree.isSubTree(n1, n6))
+# print(tree.isSubTree(n1, n6))
 
 
 # n1.left = n2
