@@ -278,6 +278,28 @@ class Tree:
 
         print(mapTree)
 
+    def binaryTreePaths(self, node):
+
+        result = []
+
+        def dfs(node, st):
+            if not node.left and not node.right:
+                st += str(node.val)
+                result.append(st)
+                return
+
+            st += str(node.val)+"->"
+
+            if node.left:
+                dfs(node.left, st)
+            if node.right:
+                dfs(node.right, st)
+
+        dfs(node, "")
+
+        return result
+
+
 #     def minDepth(self, root):
 #         node_levels = {}
 #         traversal = []
@@ -316,14 +338,13 @@ class Tree:
 
 # result = tree.minDepth(tree.root)
 # print("Result: ", result)
-
 # result = tree.minimumAbsoluteDifference()
 # print(result)
-n1 = Node(2)
-n2 = Node(1)
+n1 = Node(1)
+n2 = Node(2)
 n3 = Node(3)
-# n4 = Node(1)
-# n5 = Node(2)
+n4 = Node(5)
+n5 = Node(6)
 # n10 = Node(0)
 
 # n6 = Node(4)
@@ -332,7 +353,8 @@ n3 = Node(3)
 
 n1.left = n2
 n1.right = n3
-# n1.left.left = n4
+n1.left.left = n4
+n1.left.right = n5
 # n1.left.right = n5
 # n1.left.right.left = n10
 
@@ -340,8 +362,9 @@ n1.right = n3
 # n6.right = n8
 
 tree = Tree(n1)
-result = tree.invertBinaryTree(tree.root)
-print(tree.treeTrace(result))
+print(tree.binaryTreePaths(n1))
+# result = tree.invertBinaryTree(tree.root)
+# print(tree.treeTrace(result))
 # print(tree.diameterOfBinaryTree(tree.root))
 # print(tree.isSubTree(n1, n6))
 
