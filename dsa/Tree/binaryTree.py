@@ -299,6 +299,17 @@ class Tree:
 
         return result
 
+    def isSymmetric(self, root):
+        def dfs(left, right):
+            if not left and not right:
+                return True
+
+            if not left or not right:
+                return False
+
+            return (left.val == right.val and dfs(left.left, right.right) and dfs(left.right, right.left))
+
+        return dfs(root.left, root.right)
 
 #     def minDepth(self, root):
 #         node_levels = {}
@@ -342,27 +353,23 @@ class Tree:
 # print(result)
 n1 = Node(1)
 n2 = Node(2)
-n3 = Node(3)
-n4 = Node(5)
-n5 = Node(6)
-# n10 = Node(0)
-
-# n6 = Node(4)
-# n7 = Node(1)
-# n8 = Node(2)
+n3 = Node(2)
+n4 = Node(4)
+n5 = Node(5)
+n6 = Node(5)
+n7 = Node(4)
 
 n1.left = n2
 n1.right = n3
 n1.left.left = n4
 n1.left.right = n5
-# n1.left.right = n5
-# n1.left.right.left = n10
+n1.right.left = n6
+n1.right.right = n7
 
-# n6.left = n7
-# n6.right = n8
 
 tree = Tree(n1)
-print(tree.binaryTreePaths(n1))
+print(tree.isSymmetric(n1))
+# print(tree.binaryTreePaths(n1))
 # result = tree.invertBinaryTree(tree.root)
 # print(tree.treeTrace(result))
 # print(tree.diameterOfBinaryTree(tree.root))
