@@ -6,7 +6,7 @@ tree = Tree()
 
 
 class Node:
-    def __init__(self, key):
+    def __init__(self, key=None):
         self.left = None
         self.right = None
         self.val = key
@@ -311,6 +311,26 @@ class Tree:
 
         return dfs(root.left, root.right)
 
+    def getHeight(self, node):
+        if not node:
+            return 0
+
+        return max(self.getHeight(node.left), self.getHeight(node.right))+1
+
+    def isBalanced(self, root):
+
+        if not root:
+            return True
+
+        lh = self.getHeight(root.left)
+        rh = self.getHeight(root.right)
+
+        if abs(lh-rh) <= 1 and self.isBalanced(root.left) and self.isBalanced(root.right):
+            return True
+
+        return False
+
+
 #     def minDepth(self, root):
 #         node_levels = {}
 #         traversal = []
@@ -329,6 +349,27 @@ class Tree:
 
 #         return traversal
 
+N1 = Node(2)
+N2 = Node(1)
+N3 = Node(3)
+N4 = Node(3)
+N5 = Node(3)
+N6 = Node(4)
+N7 = Node(4)
+
+N1.left = N2
+N1.right = N3
+
+# N1.left.left = N4
+# N1.left.right = N5
+
+# N1.left.left.left = N6
+# N1.left.left.right = N7
+
+tree = Tree()
+
+print(tree.isBalanced(N1))
+
 
 # tree = Tree()
 # tree.create_node("1","1")
@@ -346,29 +387,28 @@ class Tree:
 
 
 # tree = Tree(n1)
-
 # result = tree.minDepth(tree.root)
 # print("Result: ", result)
 # result = tree.minimumAbsoluteDifference()
 # print(result)
-n1 = Node(1)
-n2 = Node(2)
-n3 = Node(2)
-n4 = Node(4)
-n5 = Node(5)
-n6 = Node(5)
-n7 = Node(4)
+# n1 = Node(1)
+# n2 = Node(2)
+# n3 = Node(2)
+# n4 = Node(4)
+# n5 = Node(5)
+# n6 = Node(5)
+# n7 = Node(4)
 
-n1.left = n2
-n1.right = n3
-n1.left.left = n4
-n1.left.right = n5
-n1.right.left = n6
-n1.right.right = n7
+# n1.left = n2
+# n1.right = n3
+# n1.left.left = n4
+# n1.left.right = n5
+# n1.right.left = n6
+# n1.right.right = n7
 
 
-tree = Tree(n1)
-print(tree.isSymmetric(n1))
+# tree = Tree(n1)
+# print(tree.isSymmetric(n1))
 # print(tree.binaryTreePaths(n1))
 # result = tree.invertBinaryTree(tree.root)
 # print(tree.treeTrace(result))
