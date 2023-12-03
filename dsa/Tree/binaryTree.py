@@ -330,6 +330,17 @@ class Tree:
 
         return False
 
+    def constructMaximumBinaryTree(self, nums):
+        if not len(nums):
+            return None
+        node = Node(max(nums))
+        maxPoint = nums.index(max(nums))
+
+        node.left = self.constructMaximumBinaryTree(nums[:maxPoint])
+        node.right = self.constructMaximumBinaryTree(nums[maxPoint+1:])
+
+        return node
+
 
 #     def minDepth(self, root):
 #         node_levels = {}
@@ -349,16 +360,16 @@ class Tree:
 
 #         return traversal
 
-N1 = Node(2)
-N2 = Node(1)
-N3 = Node(3)
-N4 = Node(3)
-N5 = Node(3)
-N6 = Node(4)
-N7 = Node(4)
+# N1 = Node(2)
+# N2 = Node(1)
+# N3 = Node(3)
+# N4 = Node(3)
+# N5 = Node(3)
+# N6 = Node(4)
+# N7 = Node(4)
 
-N1.left = N2
-N1.right = N3
+# N1.left = N2
+# N1.right = N3
 
 # N1.left.left = N4
 # N1.left.right = N5
@@ -368,8 +379,8 @@ N1.right = N3
 
 tree = Tree()
 
-print(tree.isBalanced(N1))
-
+# print(tree.isBalanced(N1))
+print(tree.constructMaximumBinaryTree([3, 2, 1, 6, 0, 5]))
 
 # tree = Tree()
 # tree.create_node("1","1")
