@@ -344,15 +344,34 @@ class Tree:
 
         return node
 
+    def checkTree(self, root):
+        total = root.val
 
-n1 = Node(3)
-n1.left = Node(9)
-n1.right = Node(20)
-n1.right.left = Node(15)
-n1.right.right = Node(7)
+        if not root:
+            return True
+        res = []
+
+        def traversal(node):
+            if not node.left and not node.right:
+                res.append(node.val)
+                return
+            else:
+                traversal(node.left)
+                traversal(node.right)
+        traversal(root)
+
+        return sum(res) == total
+
+
+n1 = Node(5)
+n1.left = Node(3)
+n1.right = Node(1)
+# n1.right.left = Node(15)
+# n1.right.right = Node(7)
 
 tree = Tree()
-print(tree.levelOrderTraversal(n1))
+print(tree.checkTree(n1))
+# print(tree.levelOrderTraversal(n1))
 
 #     def minDepth(self, root):
 #         node_levels = {}
