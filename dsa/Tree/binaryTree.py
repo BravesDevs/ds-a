@@ -122,7 +122,6 @@ class Tree:
         levelOrder(node.left)
         levelOrder(node.right)
         return traversal
-        # return [sum(x)/len(x) for x in self.traversePath]
 
     def minimumLevelBinaryTree(self, node):
 
