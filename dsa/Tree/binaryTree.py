@@ -96,29 +96,33 @@ class Tree:
         print(dictMap)
 
     def levelOrderTraversal(self, node):
-        self.traversePath = [[node.val]]
+        traversal = [[node.val]]
         queue = [node]
 
-        while True:
-            res = []
-            resNodes = []
+        def levelOrder(node):
+            while True:
+                res = []
+                resNodes = []
 
-            while len(queue) > 0:
-                current = queue.pop()
-                if current.left is not None:
-                    res.append(current.left.val)
-                    resNodes.append(current.left)
-                if current.right is not None:
-                    res.append(current.right.val)
-                    resNodes.append(current.right)
-            if len(resNodes) > 0:
-                for i in resNodes[::-1]:
-                    queue.append(i)
-                self.traversePath.append(res)
-            else:
-                break
+                while len(queue) > 0:
+                    current = queue.pop()
+                    if current.left is not None:
+                        res.append(current.left.val)
+                        resNodes.append(current.left)
+                    if current.right is not None:
+                        res.append(current.right.val)
+                        resNodes.append(current.right)
+                if len(resNodes) > 0:
+                    for i in resNodes[::-1]:
+                        queue.append(i)
+                    traversal.append(res)
+                else:
+                    break
 
-        return [sum(x)/len(x) for x in self.traversePath]
+        levelOrder(node.left)
+        levelOrder(node.right)
+        return traversal
+        # return [sum(x)/len(x) for x in self.traversePath]
 
     def minimumLevelBinaryTree(self, node):
 
@@ -342,6 +346,15 @@ class Tree:
         return node
 
 
+n1 = Node(3)
+n1.left = Node(9)
+n1.right = Node(20)
+n1.right.left = Node(15)
+n1.right.right = Node(7)
+
+tree = Tree()
+print(tree.levelOrderTraversal(n1))
+
 #     def minDepth(self, root):
 #         node_levels = {}
 #         traversal = []
@@ -377,10 +390,9 @@ class Tree:
 # N1.left.left.left = N6
 # N1.left.left.right = N7
 
-tree = Tree()
 
 # print(tree.isBalanced(N1))
-print(tree.constructMaximumBinaryTree([3, 2, 1, 6, 0, 5]))
+# print(tree.constructMaximumBinaryTree([3, 2, 1, 6, 0, 5]))
 
 # tree = Tree()
 # tree.create_node("1","1")
