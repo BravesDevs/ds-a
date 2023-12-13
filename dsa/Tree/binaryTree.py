@@ -362,15 +362,33 @@ class Tree:
 
         return sum(res) == total
 
+    def searchBST(self, root, val):
+        if not root:
+            return []
+        res = []
 
-n1 = Node(5)
-n1.left = Node(3)
-n1.right = Node(1)
-# n1.right.left = Node(15)
-# n1.right.right = Node(7)
+        def traversal(node):
+            if not node:
+                return
+            elif node.val != val:
+                traversal(node.left)
+                traversal(node.right)
+            else:
+                res.extend([node, node.left if node.left else None,
+                           node.right if node.right else None])
+        traversal(root)
+        return res
+
+
+n1 = Node(4)
+n1.left = Node(2)
+n1.right = Node(7)
+n1.left.left = Node(1)
+n1.left.right = Node(3)
 
 tree = Tree()
-print(tree.checkTree(n1))
+print(tree.searchBST(n1, 2))
+# print(tree.checkTree(n1))
 # print(tree.levelOrderTraversal(n1))
 
 #     def minDepth(self, root):
