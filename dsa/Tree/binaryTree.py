@@ -379,15 +379,31 @@ class Tree:
         traversal(root)
         return res
 
+    def countNodes(self, root):
+        if not root:
+            return 0
+        count = [0]
 
-n1 = Node(4)
+        def dfs(node):
+            if not node:
+                return
+            count[0] += 1
+            dfs(node.left)
+            dfs(node.right)
+
+        dfs(root)
+        return count[0]
+
+
+n1 = Node(1)
 n1.left = Node(2)
-n1.right = Node(7)
-n1.left.left = Node(1)
-n1.left.right = Node(3)
+n1.right = Node(3)
+n1.left.left = Node(4)
+n1.left.right = Node(5)
+n1.right.left = Node(6)
 
 tree = Tree()
-print(tree.searchBST(n1, 2))
+print(tree.countNodes(n1))
 # print(tree.checkTree(n1))
 # print(tree.levelOrderTraversal(n1))
 
