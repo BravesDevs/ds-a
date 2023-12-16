@@ -394,16 +394,84 @@ class Tree:
         dfs(root)
         return count[0]
 
+    def isValidBST(self, root):
+        if not root:
+            return True
+        treeParse = []
 
-n1 = Node(1)
+        def preOrder(node):
+            if not node:
+                return
+            treeParse.append(node.val)
+            preOrder(node.left)
+            preOrder(node.right)
+        preOrder(root)
+
+        print(treeParse)
+
+        newRoot = Node(treeParse[0])
+
+        def constructBST(data):
+            current = newRoot
+            while current:
+                if data > current.val:
+                    if current.right:
+                        current = current.right
+                    else:
+                        current.right = Node(data)
+                        return
+                elif data < current.val:
+                    if current.left:
+                        current = current.left
+                    else:
+                        current.left = Node(data)
+                        return
+                else:
+                    if not current.left:
+                        current.left = Node(data)
+                    elif not current.right:
+                        current.right = Node(data)
+                    return
+
+        for i in range(1, len(treeParse)):
+            constructBST(treeParse[i])
+
+        def compareBST(node1, node2):
+            if not node1 and not node2:
+                return True
+            if ((not node1 and node2) or (not node2 and node1)) or (node1.val != node2.val):
+                return False
+            return compareBST(node1.left if node1 else None, node2.left if node2 else None) and compareBST(node1.right if node1 else None, node2.right if node2 else None)
+
+        return compareBST(root.left if root else None, newRoot.left if newRoot else None) and compareBST(root.right if root else None, newRoot.right if newRoot else None)
+
+    def findTilt(self, root):
+        if not root:
+            return 0
+
+        tilt = [0]
+
+        def dfs(root):
+            if not root:
+                return 0
+            left = dfs(root.left)
+            right = dfs(root.right)
+            tilt[0] += abs(left-right)
+            return left+right+root.val
+        dfs(root)
+        return tilt[0]
+
+
+n1 = Node(4)
 n1.left = Node(2)
-n1.right = Node(3)
-n1.left.left = Node(4)
+n1.right = Node(9)
+n1.left.left = Node(3)
 n1.left.right = Node(5)
-n1.right.left = Node(6)
+# n1.right.left = Node(4)
+n1.right.right = Node(7)
 
 tree = Tree()
-print(tree.countNodes(n1))
+print(tree.findTilt(n1))
 # print(tree.checkTree(n1))
 # print(tree.levelOrderTraversal(n1))
 
