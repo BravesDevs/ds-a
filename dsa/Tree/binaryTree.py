@@ -461,17 +461,50 @@ class Tree:
         dfs(root)
         return tilt[0]
 
+    def zigzagLevelOrder(self, root):
+        traversal = [[root.val]]
+        queue = [root]
 
-n1 = Node(4)
+        def levelOrder():
+            nonlocal queue
+            while True:
+                res = []
+                nodes = []
+                queue = queue[::-1]
+                while len(queue):
+                    current = queue.pop()
+
+                    if current.left:
+                        res.append(current.left.val)
+                        nodes.append(current.left)
+
+                    if current.right:
+                        res.append(current.right.val)
+                        nodes.append(current.right)
+
+                if len(nodes):
+                    for i in nodes:
+                        queue.append(i)
+                    traversal.append(res)
+                else:
+                    break
+
+        levelOrder()
+
+        # for i in range(1, len(traversal), 2):
+        #     traversal[i] = traversal[i][::-1]
+        return traversal
+
+
+n1 = Node(1)
 n1.left = Node(2)
-n1.right = Node(9)
-n1.left.left = Node(3)
+n1.right = Node(3)
+n1.left.left = Node(4)
 n1.left.right = Node(5)
-# n1.right.left = Node(4)
-n1.right.right = Node(7)
+n1.right.right = Node(6)
 
 tree = Tree()
-print(tree.findTilt(n1))
+print(tree.zigzagLevelOrder(n1))
 # print(tree.checkTree(n1))
 # print(tree.levelOrderTraversal(n1))
 
