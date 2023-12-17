@@ -491,8 +491,8 @@ class Tree:
 
         levelOrder()
 
-        # for i in range(1, len(traversal), 2):
-        #     traversal[i] = traversal[i][::-1]
+        for i in range(1, len(traversal), 2):
+            traversal[i] = traversal[i][::-1]
         return traversal
 
 
