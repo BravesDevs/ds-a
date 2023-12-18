@@ -4,31 +4,35 @@ import math
 class Sol:
     def targetIndices(self, nums, target):
         nums.sort()
-        l, h = 0, len(nums)-1
+        l = 0
+        r = len(nums)-1
         left = right = -1
-        while l <= h:  # For finding the leftmost index of the target element
-            m = (l+h) >> 1
-            if nums[m] == target:
-                left = m
-                h = m-1
-            elif nums[m] > target:
-                h = m-1
+        while l <= r:
+            mid = (l+r)//2
+
+            if nums[mid] == target:
+                left = mid
+                r = mid-1
+            elif nums[mid] > target:
+                r = mid-1
             else:
-                l = m+1
-        l, h = left, len(nums)-1
-        while l <= h:  # For finding the rightmost index of the target element
-            m = (l+h) >> 1
-            if nums[m] == target:
-                right = m
-                l = m+1
-            elif nums[m] > target:
-                h = m-1
+                l = mid+1
+        l, r = left, len(nums)-1
+
+        while l <= r:
+            mid = (l+r)//2
+
+            if nums[mid] == target:
+                right = mid
+                l = mid+1
+            elif nums[mid] > target:
+                r = mid-1
             else:
-                l = m+1
+                l = mid+1
         if left == -1:
             return []
-        ans = range(left, right+1)
-        return ans
+
+        return range(left, right+1)
 
 
 sln = Sol()
