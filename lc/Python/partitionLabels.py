@@ -6,22 +6,21 @@ class Solution:
         for index, element in enumerate(s):
             if element not in firstIndex:
                 firstIndex[element] = index
+            lastIndex[element] = index
+            
 
-        for i in range(len(s)-1, -1, -1):
-            if s[i] not in lastIndex:
-                lastIndex[s[i]] = i
-
-        l = r = maxSpan = 0
-        res = []
+        l = r = 0
+        res = [0]
         while r < len(s):
-            while r < len(s) and r <= maxSpan:
-                maxSpan = max(maxSpan, lastIndex[s[r]])
-                r += 1
-            res.append((r-l))
-            l = r
-            maxSpan += 1
-            maxSpan = r
-        return res
+            pos = l
+            while l <= r:
+                r = max(r, lastIndex[s[l]])
+                l += 1
+
+            res.append((r-pos)+1)
+            r = pos = l
+
+        return res[1:]
 
 
 sln = Solution()
