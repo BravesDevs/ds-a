@@ -1,8 +1,8 @@
 # A Python class that represents
 # an individual node in a Binary Tree
 import math
-from treelib import Node, Tree
-tree = Tree()
+# from treelib import Node, Tree
+# tree = Tree()
 
 
 class Node:
@@ -495,16 +495,62 @@ class Tree:
             traversal[i] = traversal[i][::-1]
         return traversal
 
+    def rangeSumBST(self, root, low, high):
 
-n1 = Node(1)
-n1.left = Node(2)
-n1.right = Node(3)
-n1.left.left = Node(4)
-n1.left.right = Node(5)
-n1.right.right = Node(6)
+        total = [0]
+
+        def dfs(node):
+            if not node:
+                return
+
+            if low <= node.val and node.val <= high:
+                total.append(node.val)
+
+            if node and node.left:
+                dfs(node.left)
+            if node and node.right:
+                dfs(node.right)
+
+        dfs(root)
+        return sum(total)
+
+    def getTargetCopy(self, original, cloned, target):
+        def traverse(node):
+            if node is None:
+                return None
+            if node.val == target.val:
+                return node
+            left = traverse(node.left)
+            if left:
+                return left
+            right = traverse(node.right)
+            if right:
+                return right
+            return None
+
+        return traverse(cloned)
+
+
+n1 = Node(10)
+n1.left = Node(5)
+n1.right = Node(15)
+n1.left.left = Node(3)
+n1.left.right = Node(7)
+n1.right.right = Node(18)
+
+n2 = Node(10)
+n2.left = Node(5)
+n2.right = Node(15)
+n2.left.left = Node(3)
+n2.left.right = Node(7)
+n2.right.right = Node(18)
+
 
 tree = Tree()
-print(tree.zigzagLevelOrder(n1))
+res = tree.getTargetCopy(n1, n2, n1.left.left)
+print(res.val)
+# print(tree.rangeSumBST(n1, 7, 15))
+# print(tree.zigzagLevelOrder(n1))
 # print(tree.checkTree(n1))
 # print(tree.levelOrderTraversal(n1))
 
