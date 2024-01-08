@@ -1,6 +1,7 @@
 # A Python class that represents
 # an individual node in a Binary Tree
 import math
+import copy
 # from treelib import Node, Tree
 # tree = Tree()
 
@@ -530,6 +531,27 @@ class Tree:
 
         return traverse(cloned)
 
+    def getPathSumII(self, root, targetSum):
+
+        res = []
+
+        def traverse(node, path, targetSum):
+            if not node:
+                return
+
+            path.append(node.val)
+
+            if not node.left and not node.right and targetSum == node.val:
+                res.append(path)
+
+            if targetSum < 0:
+                return
+
+            traverse(node.left, copy.deepcopy(path), targetSum-node.val)
+            traverse(node.right, copy.deepcopy(path), targetSum-node.val)
+        traverse(root, [], targetSum)
+        return res
+
 
 n1 = Node(10)
 n1.left = Node(5)
@@ -538,17 +560,18 @@ n1.left.left = Node(3)
 n1.left.right = Node(7)
 n1.right.right = Node(18)
 
-n2 = Node(10)
-n2.left = Node(5)
-n2.right = Node(15)
-n2.left.left = Node(3)
-n2.left.right = Node(7)
-n2.right.right = Node(18)
+# n2 = Node(10)
+# n2.left = Node(5)
+# n2.right = Node(15)
+# n2.left.left = Node(3)
+# n2.left.right = Node(7)
+# n2.right.right = Node(18)
 
 
 tree = Tree()
-res = tree.getTargetCopy(n1, n2, n1.left.left)
-print(res.val)
+print(tree.getPathSumII(n1, 18))
+# res = tree.getTargetCopy(n1, n2, n1.left.left)
+# print(res.val)
 # print(tree.rangeSumBST(n1, 7, 15))
 # print(tree.zigzagLevelOrder(n1))
 # print(tree.checkTree(n1))
