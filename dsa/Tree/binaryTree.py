@@ -552,13 +552,75 @@ class Tree:
         traverse(root, [], targetSum)
         return res
 
+    def getPathSumIII(self, root, target):
 
-n1 = Node(10)
-n1.left = Node(5)
-n1.right = Node(15)
-n1.left.left = Node(3)
-n1.left.right = Node(7)
-n1.right.right = Node(18)
+        if not root:
+            return 0
+
+        def dfs(node, running_sum):
+            nonlocal res
+
+            if not node:
+                return
+
+            running_sum += node.val
+
+            if (running_sum-target) in sum_count:
+                res += sum_count[(running_sum-target)]
+
+            sum_count[running_sum] += 1
+            dfs(node.left, running_sum)
+            dfs(node.right, running_sum)
+            sum_count[running_sum] -= 1
+
+        res = 0
+        sum_count = defaultdict(int)
+        sum_count[0] = 1
+        dfs(root, 0)
+        return res
+
+# n1 = Node(1)
+# n1.left = Node(2)
+# n1.right = Node(3)
+
+
+tree = Tree()
+
+# n1 = Node(5)
+# n1.left = Node(4)
+# n1.right = Node(8)
+
+# n1.left.left = Node(11)
+# n1.left.left.left = Node(7)
+# n1.left.left.right = Node(2)
+
+# n1.right.left = Node(13)
+# n1.right.right = Node(4)
+# n1.right.right.left = Node(5)
+# n1.right.right.right = Node(1)
+
+# n1 = Node(10)
+# n1.left = Node(5)
+# n1.right = Node(-3)
+# n1.left.left = Node(3)
+# n1.left.right = Node(2)
+# n1.left.left.left = Node(3)
+# n1.left.left.right = Node(-2)
+# n1.left.right = Node(2)
+# n1.left.right.right = Node(1)
+# n1.right.right = Node(11)
+
+n1 = Node(1)
+n1.left = Node(-2)
+n1.right = Node(-3)
+n1.left.left = Node(1)
+n1.left.right = Node(3)
+
+n1.left.left.left = Node(-1)
+
+n1.right.left = Node(-2)
+
+print(tree.getPathSumIII(n1, 1))
 
 # n2 = Node(10)
 # n2.left = Node(5)
@@ -568,8 +630,7 @@ n1.right.right = Node(18)
 # n2.right.right = Node(18)
 
 
-tree = Tree()
-print(tree.getPathSumII(n1, 18))
+# print(tree.getPathSumII(n1, 18))
 # res = tree.getTargetCopy(n1, n2, n1.left.left)
 # print(res.val)
 # print(tree.rangeSumBST(n1, 7, 15))
