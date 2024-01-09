@@ -579,6 +579,39 @@ class Tree:
         dfs(root, 0)
         return res
 
+    def deepestLeavesSum(self, root):
+        traversal = [[root.val]]
+        queue = [root]
+
+        def levelOrder(node):
+            while True:
+                res = []
+                resNodes = []
+
+                while len(queue):
+                    node = queue.pop(0)
+
+                    if node.left:
+                        res.append(node.left.val)
+                        resNodes.append(node.left)
+                    if node.right:
+                        res.append(node.right.val)
+                        resNodes.append(node.right)
+
+                if len(res):
+                    queue.extend(resNodes)
+                    traversal.append(res)
+                else:
+                    break
+        
+
+        levelOrder(root.left)
+        levelOrder(root.right)
+
+        return sum(traversal[-1])
+        # return traversal
+
+
 # n1 = Node(1)
 # n1.left = Node(2)
 # n1.right = Node(3)
@@ -611,16 +644,21 @@ tree = Tree()
 # n1.right.right = Node(11)
 
 n1 = Node(1)
-n1.left = Node(-2)
-n1.right = Node(-3)
-n1.left.left = Node(1)
-n1.left.right = Node(3)
 
-n1.left.left.left = Node(-1)
+n1.left = Node(2)
+n1.right = Node(3)
 
-n1.right.left = Node(-2)
+n1.left.left = Node(4)
+n1.left.right = Node(5)
 
-print(tree.getPathSumIII(n1, 1))
+n1.left.left.left = Node(7)
+
+n1.right.right = Node(6)
+n1.right.right.right = Node(8)
+
+
+# print(tree.getPathSumIII(n1, 1))
+print(tree.deepestLeavesSum(n1))
 
 # n2 = Node(10)
 # n2.left = Node(5)
