@@ -636,6 +636,8 @@ class Tree:
 
         graph = convert(root, 0, {})
 
+        print(graph)
+
         visited = set()
         visited.add(start)
 
@@ -643,20 +645,16 @@ class Tree:
 
         q = [start]
 
-        while q:
-            sz = len(q)
-            while sz:
-                node = q.pop(0)
-
-                for child in graph[node]:
-                    if child not in visited:
-                        visited.add(child)
-                        q.append(child)
-
-                sz -= 1
-
+        while len(q):
+            size = len(q)
+            while size:
+                NODE = q.pop(0)
+                for i in graph[NODE]:
+                    if i not in visited:
+                        visited.add(i)
+                        q.append(i)
+                size -= 1
             minutes += 1
-
         return minutes
 
 
