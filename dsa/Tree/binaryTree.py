@@ -4,6 +4,7 @@ import math
 import copy
 # from treelib import Node, Tree
 # tree = Tree()
+from collections import deque
 
 
 class Node:
@@ -603,62 +604,82 @@ class Tree:
                     traversal.append(res)
                 else:
                     break
-        
 
         levelOrder(root.left)
         levelOrder(root.right)
 
         return sum(traversal[-1])
-        # return traversal
 
+    def amountOfTime(self, root, start):
 
-# n1 = Node(1)
-# n1.left = Node(2)
-# n1.right = Node(3)
+        if not root or (root and not root.left and not root.right):
+            return 0
+
+        def convert(node, val, graph):
+            if not node:
+                return
+            graph[node.val] = []
+
+            if val != 0:
+                graph[node.val].append(val)
+
+            if node.left:
+                graph[node.val].append(node.left.val)
+
+            if node.right:
+                graph[node.val].append(node.right.val)
+
+            convert(node.left, node.val, graph)
+            convert(node.right, node.val, graph)
+
+            return graph
+
+        graph = convert(root, 0, {})
+
+        visited = set()
+        visited.add(start)
+
+        minutes = -1
+
+        q = [start]
+
+        while q:
+            sz = len(q)
+            while sz:
+                node = q.pop(0)
+
+                for child in graph[node]:
+                    if child not in visited:
+                        visited.add(child)
+                        q.append(child)
+
+                sz -= 1
+
+            minutes += 1
+
+        return minutes
 
 
 tree = Tree()
 
-# n1 = Node(5)
-# n1.left = Node(4)
-# n1.right = Node(8)
-
-# n1.left.left = Node(11)
-# n1.left.left.left = Node(7)
-# n1.left.left.right = Node(2)
-
-# n1.right.left = Node(13)
-# n1.right.right = Node(4)
-# n1.right.right.left = Node(5)
-# n1.right.right.right = Node(1)
-
-# n1 = Node(10)
-# n1.left = Node(5)
-# n1.right = Node(-3)
-# n1.left.left = Node(3)
-# n1.left.right = Node(2)
-# n1.left.left.left = Node(3)
-# n1.left.left.right = Node(-2)
-# n1.left.right = Node(2)
-# n1.left.right.right = Node(1)
-# n1.right.right = Node(11)
-
 n1 = Node(1)
-
-n1.left = Node(2)
+n1.left = Node(5)
 n1.right = Node(3)
 
-n1.left.left = Node(4)
-n1.left.right = Node(5)
+n1.left.right = Node(4)
 
-n1.left.left.left = Node(7)
+n1.left.right.left = Node(9)
+n1.left.right.right = Node(2)
 
+n1.right.left = Node(10)
 n1.right.right = Node(6)
-n1.right.right.right = Node(8)
+
+
+print(tree.amountOfTime(n1, 3))
 
 
 # print(tree.getPathSumIII(n1, 1))
-print(tree.deepestLeavesSum(n1))
+# print(tree.deepestLeavesSum(n1))
 
 # n2 = Node(10)
 # n2.left = Node(5)
