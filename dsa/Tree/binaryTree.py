@@ -657,23 +657,40 @@ class Tree:
             minutes += 1
         return minutes
 
+    def maxAncestorDiff(self, root):
+
+        def dfs(node, min_val, max_val):
+            if not node:
+                return max_val - min_val
+
+            min_val = min(min_val, node.val)
+            max_val = max(max_val, node.val)
+
+            left_diff = dfs(node.left, min_val, max_val)
+            right_diff = dfs(node.right, min_val, max_val)
+
+            return max(left_diff, right_diff)
+
+        return dfs(root, root.val, root.val)
+
 
 tree = Tree()
 
 n1 = Node(1)
-n1.left = Node(5)
-n1.right = Node(3)
+n1.right = Node(2)
+n1.right.right = Node(0)
+n1.right.right.left = Node(3)
 
-n1.left.right = Node(4)
+# n1.left.right = Node(4)
 
-n1.left.right.left = Node(9)
-n1.left.right.right = Node(2)
+# n1.left.right.left = Node(9)
+# n1.left.right.right = Node(2)
 
-n1.right.left = Node(10)
-n1.right.right = Node(6)
+# n1.right.left = Node(10)
+# n1.right.right = Node(6)
 
-
-print(tree.amountOfTime(n1, 3))
+print(tree.maxAncestorDiff(n1))
+# print(tree.amountOfTime(n1, 3))
 
 
 # print(tree.getPathSumIII(n1, 1))
