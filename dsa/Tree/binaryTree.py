@@ -673,13 +673,58 @@ class Tree:
 
         return dfs(root, root.val, root.val)
 
+    def bstToGst(self, root):
+        keys = []
+
+        def dfs(node):
+            if not node:
+                return
+            keys.append(node.val)
+            dfs(node.left)
+            dfs(node.right)
+
+        dfs(root)
+
+    # Need to traverse the tree and replace with the summation of the values
+    # greater than a node's value
+
+        keys.sort()
+
+        def replaceValues(node):
+            if not node:
+                return
+
+            index = keys.index(node.val)
+            summation = sum(keys[index:])
+            node.val = summation
+
+            replaceValues(node.left)
+            replaceValues(node.right)
+            return
+
+        # ! https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/description/
+
 
 tree = Tree()
 
-n1 = Node(1)
-n1.right = Node(2)
-n1.right.right = Node(0)
-n1.right.right.left = Node(3)
+n1 = Node(4)
+n1.left = Node(1)
+n1.right = Node(6)
+
+n1.left.left = Node(0)
+n1.left.right = Node(2)
+n1.left.right.right = Node(3)
+
+n1.right.left = Node(26)
+n1.right.right = Node(7)
+n1.right.right.right = Node(8)
+
+print(tree.bstToGst(n1))
+
+# n1 = Node(1)
+# n1.right = Node(2)
+# n1.right.right = Node(0)
+# n1.right.right.left = Node(3)
 
 # n1.left.right = Node(4)
 
@@ -689,7 +734,7 @@ n1.right.right.left = Node(3)
 # n1.right.left = Node(10)
 # n1.right.right = Node(6)
 
-print(tree.maxAncestorDiff(n1))
+# print(tree.maxAncestorDiff(n1))
 # print(tree.amountOfTime(n1, 3))
 
 
