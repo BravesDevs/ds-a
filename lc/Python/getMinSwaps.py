@@ -44,6 +44,8 @@ class Sol:
                 j -= 1
                 ans += 1
         return ans
+    
+    
 
 
 sln = Sol()
