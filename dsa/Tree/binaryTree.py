@@ -673,6 +673,36 @@ class Tree:
 
         return dfs(root, root.val, root.val)
 
+    def levelOrderBottom(self, root):
+        if not root:
+            return []
+
+        queue = [root]
+
+        traversal = [[root.val]]
+
+        while True:
+            res = []
+            nodes = []
+
+            while len(queue):
+                node = queue.pop(0)
+
+                if node.left:
+                    res.append(node.left.val)
+                    nodes.append(node.left)
+
+                if node.right:
+                    res.append(node.right.val)
+                    nodes.append(node.right)
+
+            if len(res):
+                queue.extend(nodes)
+                traversal.append(res)
+            else:
+                break
+        return traversal[::-1]
+
     def bstToGst(self, root):
         keys = []
 
@@ -707,19 +737,28 @@ class Tree:
 
 tree = Tree()
 
-n1 = Node(4)
-n1.left = Node(1)
-n1.right = Node(6)
+n1 = Node(3)
+n1.left = Node(9)
+n1.right = Node(20)
 
-n1.left.left = Node(0)
-n1.left.right = Node(2)
-n1.left.right.right = Node(3)
-
-n1.right.left = Node(26)
+n1.right.left = Node(15)
 n1.right.right = Node(7)
-n1.right.right.right = Node(8)
 
-print(tree.bstToGst(n1))
+# n1 = Node(4)
+# n1.left = Node(1)
+# n1.right = Node(6)
+
+# n1.left.left = Node(0)
+# n1.left.right = Node(2)
+# n1.left.right.right = Node(3)
+
+# n1.right.left = Node(26)
+# n1.right.right = Node(7)
+# n1.right.right.right = Node(8)
+
+# print(tree.bstToGst(n1))
+
+print(tree.levelOrderBottom(n1))
 
 # n1 = Node(1)
 # n1.right = Node(2)
