@@ -714,10 +714,6 @@ class Tree:
             dfs(node.right)
 
         dfs(root)
-
-    # Need to traverse the tree and replace with the summation of the values
-    # greater than a node's value
-
         keys.sort()
 
         def replaceValues(node):
@@ -734,15 +730,45 @@ class Tree:
 
         # ! https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/description/
 
+    def flatten(self, root):
+        if not root:
+            return
+
+        traverse = []
+
+        def dfs(root):
+            if not root:
+                return
+            traverse.append(root.val)
+            dfs(root.left)
+            dfs(root.right)
+        dfs(root)
+
+        N = len(traverse)
+
+        def construct(val, i):
+            if i == N-1:
+                return None
+
+            node = Node(val)
+            node.left = None
+            node.right = TreeNode(construct(traverse[i+1], i+1))
+            return node
+
+        return construct(traverse[0], 0)
+
 
 tree = Tree()
 
-n1 = Node(3)
-n1.left = Node(9)
-n1.right = Node(20)
+n1 = Node(1)
 
-n1.right.left = Node(15)
-n1.right.right = Node(7)
+n1.left = Node(2)
+n1.right = Node(5)
+
+n1.left.left = Node(3)
+n1.left.right = Node(4)
+
+n1.right.right = Node(6)
 
 # n1 = Node(4)
 # n1.left = Node(1)
@@ -758,7 +784,7 @@ n1.right.right = Node(7)
 
 # print(tree.bstToGst(n1))
 
-print(tree.levelOrderBottom(n1))
+print(tree.flatten(n1))
 
 # n1 = Node(1)
 # n1.right = Node(2)
