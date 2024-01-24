@@ -2,6 +2,7 @@
 # an individual node in a Binary Tree
 import math
 import copy
+from collections import defaultdict
 # from treelib import Node, Tree
 # tree = Tree()
 from collections import deque
@@ -752,39 +753,51 @@ class Tree:
 
             node = Node(val)
             node.left = None
-            node.right = TreeNode(construct(traverse[i+1], i+1))
+            node.right = Node(construct(traverse[i+1], i+1))
             return node
 
         return construct(traverse[0], 0)
 
+    def pseudoPalindromicPaths(self, root):
+        count = defaultdict(int)
+        odd = 0
+
+        def dfs(root):
+            nonlocal odd
+            if not root:
+                return 0
+
+            count[root.val] += 1
+            odd_change = 1 if count[root.val] % 2 == 1 else -1
+            odd += odd_change
+
+            if not root.left and not root.right:
+                res = 1 if odd <= 1 else 0
+            else:
+                res = dfs(root.left)+dfs(root.right)
+
+            odd -= odd_change
+            count[root.val] -= 1
+
+            return res
+
+        return dfs(root)
+
 
 tree = Tree()
 
-n1 = Node(1)
-
-n1.left = Node(2)
-n1.right = Node(5)
+n1 = Node(2)
+n1.left = Node(3)
+n1.right = Node(1)
 
 n1.left.left = Node(3)
-n1.left.right = Node(4)
+n1.left.right = Node(1)
 
-n1.right.right = Node(6)
+n1.right.right = Node(1)
 
-# n1 = Node(4)
-# n1.left = Node(1)
-# n1.right = Node(6)
+print(tree.pseudoPalindromicPaths(n1))
 
-# n1.left.left = Node(0)
-# n1.left.right = Node(2)
-# n1.left.right.right = Node(3)
-
-# n1.right.left = Node(26)
-# n1.right.right = Node(7)
-# n1.right.right.right = Node(8)
-
-# print(tree.bstToGst(n1))
-
-print(tree.flatten(n1))
+# print(tree.flatten(n1))
 
 # n1 = Node(1)
 # n1.right = Node(2)
