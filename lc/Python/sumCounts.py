@@ -4,9 +4,9 @@ import math
 class Solution:
     def sumCounts(self, nums):
         total = 0
-        for i in range(1, len(nums) + 1):
-            for j in range(len(nums) - i + 1):
-                li = nums[j:j+i]
+        for i in range(len(nums)):
+            for j in range(len(nums) - i):
+                li = nums[j:(j+i)+1]
                 total += len(set(li))**2
         return total
 
