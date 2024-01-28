@@ -783,6 +783,30 @@ class Tree:
 
         return dfs(root)
 
+    def bstFromPreorder(self, preorder):
+        if not preorder:
+            return None
+
+        root = Node(preorder.pop(0))
+
+        def addNode(node, val):
+            if not node:
+                return
+            if val > node.val:
+                if node.right:
+                    addNode(node.right, val)
+                else:
+                    node.right = TreeNode(val)
+            else:
+                if node.left:
+                    addNode(node.left, val)
+                else:
+                    node.left = TreeNode(val)
+
+        while len(preorder):
+            self.addNode(root, preorder.pop(0))
+        return root
+
 
 tree = Tree()
 
