@@ -3,7 +3,6 @@ class Solution:
         l = 0
         r = len(nums)-1
 
-
         while l < r:
             mid = (l+r)//2
             if nums[mid] < nums[mid+1]:
@@ -12,5 +11,6 @@ class Solution:
                 r = mid
         return l
 
+
 sln = Solution()
-print(sln.findPeakElement([1]))
+print(sln.findPeakElement([5, 4, 3]))
