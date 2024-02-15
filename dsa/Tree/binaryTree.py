@@ -807,6 +807,28 @@ class Tree:
             self.addNode(root, preorder.pop(0))
         return root
 
+    def connect(self, root):
+        if not root:
+            return
+        queue = [root]
+        while True:
+            nodes = []
+            while len(queue):
+                node = queue.pop(0)
+                if not queue:
+                    node.next = None
+                else:
+                    node.next = queue[0]
+                if node.left:
+                    nodes.append(node.left)
+                if node.right:
+                    nodes.append(node.right)
+            if not len(nodes):
+                break
+            else:
+                queue.extend(nodes)
+        return root
+
 
 tree = Tree()
 
