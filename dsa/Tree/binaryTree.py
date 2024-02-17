@@ -829,19 +829,63 @@ class Tree:
                 queue.extend(nodes)
         return root
 
+    def sumEvenGrandparent(self, root):
+        nodes = []
+
+        def dfs(node):
+            if not node:
+                return
+
+            if node.val % 2 == 0:
+                nodes.append(node)
+
+            dfs(node.left)
+            dfs(node.right)
+
+        dfs(root)
+
+        res = 0
+
+        while len(nodes):
+            node = nodes.pop(0)
+
+            def summation(node, level):
+                nonlocal res
+
+                if not node:
+                    return
+
+                if level == 2 and node:
+                    res += node.val
+                    return
+
+                summation(node.left, copy.deepcopy(level+1))
+                summation(node.right, copy.deepcopy(level+1))
+
+            summation(node, 0)
+
+        return res
+
 
 tree = Tree()
 
-n1 = Node(2)
-n1.left = Node(3)
-n1.right = Node(1)
+n1 = Node(6)
+n1.left = Node(7)
+n1.right = Node(8)
 
-n1.left.left = Node(3)
-n1.left.right = Node(1)
+n1.left.left = Node(2)
+n1.left.right = Node(7)
 
-n1.right.right = Node(1)
+n1.left.left.left = Node(9)
+n1.left.right.left = Node(1)
+n1.left.right.right = Node(4)
 
-print(tree.pseudoPalindromicPaths(n1))
+n1.right.left = Node(1)
+n1.right.right = Node(3)
+n1.right.right.right = Node(5)
+
+print(tree.sumEvenGrandparent(n1))
+# print(tree.pseudoPalindromicPaths(n1))
 
 # print(tree.flatten(n1))
 
