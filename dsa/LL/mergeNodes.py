@@ -26,6 +26,10 @@ class Solution:
 
         return head
 
+    def deleteNode(self, node):
+        node.val = node.next.val
+        node.next = node.next.next
+
 
 n1 = ListNode(0)
 n1.next = ListNode(1)
