@@ -6,30 +6,24 @@ class ListNode:
 
 class Solution:
     def mergeNodes(self, head):
-        if head is None:
-            return head
+        ptr1 = head
+        ptr2 = head.next
         current = head
-
-        res = []
         total = 0
-
-        while current:
-            if current.val == 0 and total > 0:
-                res.append(total)
+        while ptr2:
+            if ptr2.val == 0:
+                current.next = ListNode(total)
+                current = current.next
                 total = 0
+                ptr1 = ptr2
             else:
-                total += current.val
-            current = current.next
-        if total > 0:
-            res.append(total)
+                total += ptr2.val
+            ptr2 = ptr2.next
+        current.next = ListNode(total)
 
-        current = head
-        current.val = res.pop(0)
         current.next = None
+        head = head.next
 
-        while len(res):
-            current.next = ListNode(res.pop(0))
-            current = current.next
         return head
 
 
