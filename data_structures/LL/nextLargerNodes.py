@@ -9,13 +9,12 @@ class Solution:
         if not head:
             return
 
-        # ptr = head
-        # li = []
-        # while ptr:
-        #     li.append(ptr.val)
-        #     ptr = ptr.next
+        ptr = head
+        li = []
+        while ptr:
+            li.append(ptr.val)
+            ptr = ptr.next
 
-        li = [1, 7, 5, 1, 9, 2, 5, 1]
         stack = []
 
         for i in range(len(li)):
