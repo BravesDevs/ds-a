@@ -879,6 +879,30 @@ class Tree:
         dfs(root)
         return self.maxSum
 
+    def evaluateTree(self, root):
+
+        if not root:
+            return False
+
+        if not root.left and not root.right:
+            return bool(root.val)
+
+        def evaluate(node):
+            if not node:
+                return
+            if not node.left and not node.right:
+                return bool(node.val)
+            else:
+                if node.val == 2:
+                    node.val = bool(evaluate(node.left)) or bool(
+                        evaluate(node.right))
+                else:
+                    node.val = bool(evaluate(node.left)) and bool(
+                        evaluate(node.right))
+            return node.val
+
+        return evaluate(root)
+
 
 tree = Tree()
 
