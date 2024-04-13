@@ -1,9 +1,7 @@
 class Solution:
     def outlierInterview(self, string):
-        sentence = string.lower().replace('.', '').split(' ')
-        sentence.sort(key=len)
-        res = (' '.join(sentence) + '.').capitalize()
-        return res
+        sentence = sorted(string.lower().replace('.', '').split(' '), key=len)
+        return (' '.join(sentence) + '.').capitalize()
 
 
 sln = Solution()
