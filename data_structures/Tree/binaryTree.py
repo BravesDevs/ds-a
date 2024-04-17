@@ -919,21 +919,45 @@ class Tree:
             return cur
         return dfs(root, "")
 
+    def rightSideView(self, root):
+
+        if not root:
+            return
+        queue = [root]
+        res = [root.val]
+        while True:
+            childNodes = []
+            levelTraverse = []
+            for _ in range(len(queue)):
+                node = queue.pop(0)
+                if node.left is not None:
+                    childNodes.append(node.left)
+                    levelTraverse.append(node.left.val)
+                if node.right is not None:
+                    childNodes.append(node.right)
+                    levelTraverse.append(node.right.val)
+            if len(childNodes):
+                queue = childNodes
+                res.append(levelTraverse[-1])
+            else:
+                break
+        return res
+
 
 tree = Tree()
 
-n1 = Node(0)
-n1.left = Node(1)
-n1.right = Node(2)
+n1 = Node(1)
+n1.left = Node(2)
+n1.right = Node(3)
 
-n1.left.left = Node(3)
-n1.left.right = Node(4)
+n1.left.left = Node(4)
+# n1.left.right=Node(5)
 
-n1.right.left = Node(3)
-n1.right.right = Node(4)
+# n1.right.left = Node(3)
+# n1.right.right = Node(4)
 
 tree = Tree()
-tree.smallestFromLeaf(n1)
+tree.rightSideView(n1)
 # print(tree.sumEvenGrandparent(n1))
 # print(tree.pseudoPalindromicPaths(n1))
 
