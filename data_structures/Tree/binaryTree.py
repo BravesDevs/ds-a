@@ -903,25 +903,38 @@ class Tree:
 
         return evaluate(root)
 
+    def smallestFromLeaf(self, root):
+
+        def dfs(root, cur):
+            if not root:
+                return
+            cur = chr(ord('a')+root.val) + cur
+            if root.left and root.right:
+                return min(dfs(root.left, cur), dfs(root.right, cur))
+            if root.left:
+                return dfs(root.left, cur)
+            if root.right:
+                dfs(root.right, cur)
+
+            return cur
+        return dfs(root, "")
+
 
 tree = Tree()
 
-n1 = Node(6)
-n1.left = Node(7)
-n1.right = Node(8)
+n1 = Node(0)
+n1.left = Node(1)
+n1.right = Node(2)
 
-n1.left.left = Node(2)
-n1.left.right = Node(7)
+n1.left.left = Node(3)
+n1.left.right = Node(4)
 
-n1.left.left.left = Node(9)
-n1.left.right.left = Node(1)
-n1.left.right.right = Node(4)
+n1.right.left = Node(3)
+n1.right.right = Node(4)
 
-n1.right.left = Node(1)
-n1.right.right = Node(3)
-n1.right.right.right = Node(5)
-
-print(tree.sumEvenGrandparent(n1))
+tree = Tree()
+tree.smallestFromLeaf(n1)
+# print(tree.sumEvenGrandparent(n1))
 # print(tree.pseudoPalindromicPaths(n1))
 
 # print(tree.flatten(n1))
