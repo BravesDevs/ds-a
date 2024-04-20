@@ -3,36 +3,30 @@ import copy
 
 class Solution:
     def findFarmland(self, land):
+
         ROWS = len(land)
         COLS = len(land[0])
-        visit = set()
         res = []
+        visit = set()
 
-        def dfs(r, c, maxRow, maxCol):
-            if (r >= ROWS or c >= COLS) or ((r, c) in visit) or (land[r][c] == 0):
-                return maxRow, maxCol
+        def dfs(r, c):
+            if (r >= ROWS or c >= COLS or (r, c) in visit or land[r][c] == 0):
+                return r - 1, c - 1
+
             visit.add((r, c))
-            if r + 1 < ROWS and land[r + 1][c] == 1:
-                maxRow = max(maxRow, r + 1)
-                maxRow, maxCol = dfs(r + 1, c, maxRow, maxCol)
+            maxRow, maxCol = r, c
 
-            if c + 1 < COLS and land[r][c + 1] == 1:
-                maxCol = max(maxCol, c + 1)
-                maxRow, maxCol = dfs(r, c + 1, maxRow, maxCol)
+            maxRow, maxCol = max(maxRow, dfs(r + 1, c)
+                                 [0]), max(maxCol, dfs(r, c + 1)[1])
+
             return maxRow, maxCol
 
         for r in range(ROWS):
             for c in range(COLS):
-                li = []
                 if land[r][c] == 1 and (r, c) not in visit:
-                    li.append(r)
-                    li.append(c)
-                    maxR, maxC = dfs(r, c, r, c)
-                    li.append(maxR)
-                    li.append(maxC)
-                    if li not in res:
-                        res.append(li)
-                visit.add((r, c))
+                    maxRow, maxCol = dfs(r, c)
+                    res.append([r, c, maxRow, maxCol])
+
         return res
 
 
