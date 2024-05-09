@@ -920,7 +920,6 @@ class Tree:
         return dfs(root, "")
 
     def rightSideView(self, root):
-
         if not root:
             return
         queue = [root]
@@ -942,6 +941,31 @@ class Tree:
             else:
                 break
         return res
+
+    def reverseOddLevels(self, root):
+        if not root:
+            return
+
+        queue = []
+
+        level = 1
+        while True:
+            traversalNodes = []
+            for _ in range(len(queue)):
+                node = queue.popleft()
+
+                if node.left:
+                    traversalNodes.append(node.left)
+                if node.right:
+                    traversalNodes.append(node.right)
+                if level % 2 != 0:
+                    node.left.val, node.right.val = node.right.val, node.left.val
+            level += 1
+            if len(queue):
+                queue.insert(traversalNodes)
+            else:
+                break
+        return root
 
 
 tree = Tree()
