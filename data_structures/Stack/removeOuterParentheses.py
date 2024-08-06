@@ -20,4 +20,4 @@ class Solution:
 
 
 sln = Solution()
-print(sln.removeOuterParentheses("(()())(())"))
+print(sln.removeOuterParentheses("(())"))
