@@ -22,6 +22,7 @@ class Solution:
 
             return True
 
+        # Fetching the 3x3 cubes from Matrix
         ROWS = len(grid)
         COLS = len(grid[0])
         cubes = []
