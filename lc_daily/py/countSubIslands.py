@@ -13,16 +13,15 @@ class Solution:
                 return True
 
             visit[r][c] = True
-            res = True
-            if grid1[r][c] == 0:
-                res = False
 
-            res &= dfs(r+1, c)
-            res &= dfs(r-1, c)
-            res &= dfs(r, c+1)
-            res &= dfs(r, c-1)
+            res = grid1[r][c] == 1
 
-            return res
+            res &= dfs(r + 1, c)
+            res &= dfs(r - 1, c)
+            res &= dfs(r, c + 1)
+            res &= dfs(r, c - 1)
+
+            retur   n res
 
         count = 0
 
