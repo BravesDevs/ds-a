@@ -1,0 +1,21 @@
+A: I need 4 classes, one is ParkingSpot, one is Vehicle, one is ParkingLot, and one is ParkingFloor.
+
+    ParkingSpot is a individual parking spot, with row, column, floor, and type
+
+    ParkingFloor is collection of parking spots and managing the free spots
+
+    ParkingLot is collection of parking floors and managing the Vehicle parking and unparking
+
+    Vehicle is a vehicle with license plate, type, and size and represents parked vehicle
+
+B: Key Operations
+
+1. Park(vehicleType, vehicleNumber, ticketId, strategy)
+2. removeVehicle(ticketId/spotId)
+3. searchVehicle(ticketId/vehicleNumber)
+4. getFreeSpots(floor, vehicleId)
+
+C: Parking strategy
+1. Low index first: Prioritize the parking spot with low index of floor, row, column
+2. Most free spots first: Chooses the floor with most free spots
+
