@@ -4,7 +4,7 @@ from typing import List
 class Solution:
     def threeSumClosest(self, nums: List[int], target: int) -> int:
         nums=sorted(nums)
-        res = {}
+        distance = float('inf')
         N = len(nums)
 
         for i in range(N):
@@ -14,13 +14,15 @@ class Solution:
             
             while l<r:
                 summ = nums[i]+nums[l]+nums[r]
-                res[target-summ]=summ
+                if abs(target-summ)<=distance:
+                    distance=abs(target-summ)
+                    op=summ
                 if summ>=target:
                     r-=1
                 else:
                     l+=1
-        return res[min(res.keys(), key=abs)]
+        return op
 
 
 sln = Solution()
-print(sln.threeSumClosest([-1,2,1,-4],1))
+print(sln.threeSumClosest([10,20,30,40,50,60,70,80,90],1))
