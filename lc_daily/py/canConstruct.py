@@ -8,11 +8,11 @@ class Solution:
 
         for i in magazineSet:
             magazineElementCount[i]=magazine.count(i)
-        
+
         ransomSetElementCount = {}
-        
+
         ransomSet = list(set(ransomNote))
-        
+
         for i in ransomSet:
             ransomSetElementCount[i]=ransomNote.count(i)
 
@@ -24,6 +24,6 @@ class Solution:
         return True
 
 
-        
+
 sln = Solution()
 print(sln.canConstruct("aa","aab"))
